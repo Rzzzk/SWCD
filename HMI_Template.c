@@ -28,7 +28,10 @@
 
 void HMI_MainFunction (void)
 {
-	Std_ReturnType status;
+	Std_ReturnType Height_status;
+	Std_ReturnType Incline_status;
+	Std_ReturnType Slide_status;
+	
 	MultiStateBtnType HeightBtnState;
 	MultiStateBtnType InclineBtnState;
 	MultiStateBtnType SlideBtnState;
@@ -38,11 +41,13 @@ void HMI_MainFunction (void)
 	
 	
 	/* Data Receive Points */
-	status = Rte_Read_rpSeatCtrlData_Height(&Height);
-	status = Rte_Read_rpSeatCtrlData_Incline(&Incline);
-	status = Rte_Read_rpSeatCtrlData_Slide(&Slide);
+	Height_status  = Rte_Read_rpSeatCtrlData_Height(&Height);
+	Incline_status = Rte_Read_rpSeatCtrlData_Incline(&Incline);
+	Slide_status   = Rte_Read_rpSeatCtrlData_Slide(&Slide);
 	
-	if( Height == 0 )
+	
+	/*1. Convert Hight command to button command*/
+	if( Height_status == RTE_E_NEVER_RECEIVED ||  Height == 0 )
 	{
 		HeightBtnState = MULTI_STATE_BTN_INIT;
 	}
@@ -53,6 +58,34 @@ void HMI_MainFunction (void)
 	else if( Height == 2 )
 	{
 		HeightBtnState = MULTI_STATE_BTN_PLUS;
+	}
+	
+	/*2. Convert incline command to button command*/
+	if( Incline_status == RTE_E_NEVER_RECEIVED ||  Incline == 0 )
+	{
+		InclineBtnState = MULTI_STATE_BTN_INIT;
+	}
+	else if( Height == 1 )
+	{
+		InclineBtnState = MULTI_STATE_BTN_MINUS;
+	}
+	else if( Height == 2 )
+	{
+		InclineBtnState = MULTI_STATE_BTN_PLUS;
+	}
+	
+	/*3. Convert slide command to button command*/
+	if( Slide_status == RTE_E_NEVER_RECEIVED ||  Slide == 0 )
+	{
+		SlideBtnState = MULTI_STATE_BTN_INIT;
+	}
+	else if( Height == 1 )
+	{
+		SlideBtnState = MULTI_STATE_BTN_MINUS;
+	}
+	else if( Height == 2 )
+	{
+		SlideBtnState = MULTI_STATE_BTN_PLUS;
 	}
 	
 	/* Data Send Points */
