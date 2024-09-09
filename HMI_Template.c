@@ -65,11 +65,11 @@ void HMI_MainFunction (void)
 	{
 		InclineBtnState = MULTI_STATE_BTN_INIT;
 	}
-	else if( Height == 1 )
+	else if( Incline == 1 )
 	{
 		InclineBtnState = MULTI_STATE_BTN_MINUS;
 	}
-	else if( Height == 2 )
+	else if( Incline == 2 )
 	{
 		InclineBtnState = MULTI_STATE_BTN_PLUS;
 	}
@@ -79,11 +79,11 @@ void HMI_MainFunction (void)
 	{
 		SlideBtnState = MULTI_STATE_BTN_INIT;
 	}
-	else if( Height == 1 )
+	else if( Slide == 1 )
 	{
 		SlideBtnState = MULTI_STATE_BTN_MINUS;
 	}
-	else if( Height == 2 )
+	else if( Slide == 2 )
 	{
 		SlideBtnState = MULTI_STATE_BTN_PLUS;
 	}
