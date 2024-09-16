@@ -89,9 +89,9 @@ void HMI_MainFunction (void)
 	}
 	
 	/* Data Send Points */
-	status = Rte_Write_ppSeatCtrlBtns_HeightBtnState(HeightBtnState);
-	status = Rte_Write_ppSeatCtrlBtns_InclineBtnState(InclineBtnState);
-	status = Rte_Write_ppSeatCtrlBtns_SlideBtnState(SlideBtnState);
+	Height_status = Rte_Write_ppSeatCtrlBtns_HeightBtnState(HeightBtnState);
+	Incline_status = Rte_Write_ppSeatCtrlBtns_InclineBtnState(InclineBtnState);
+	Slide_status = Rte_Write_ppSeatCtrlBtns_SlideBtnState(SlideBtnState);
 	
 }
 

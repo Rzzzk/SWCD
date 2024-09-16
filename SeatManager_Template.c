@@ -4,7 +4,7 @@
  * \brief Rte Component Template for AUTOSAR SWC: SeatManager
  *
  * \author Sprints AUTOSAR Authoring Tool (SAAT) v1.0.2
- * Generated on 9/9/2024 05:10 PM
+ * Generated on 9/16/2024 12:03 PM
  *
  * For any inquiries: hassan.m.farahat@gmail.com
  *
@@ -38,11 +38,11 @@ void SeatManager_SetHeight (void)
 	
 	if(HeightBtnState == MULTI_STATE_BTN_MINUS)
 	{
-		Rte_Call_rpHeightMototor_Move(MOTOR_STEP_MINUS);
+		Rte_Call_rpHeightMotor_Move(MOTOR_STEP_MINUS);
 	}
 	else if(HeightBtnState == MULTI_STATE_BTN_PLUS)
 	{
-		Rte_Call_rpHeightMototor_Move(MOTOR_STEP_PLUS);
+		Rte_Call_rpHeightMotor_Move(MOTOR_STEP_PLUS);
 	}
 	
 }
@@ -72,11 +72,10 @@ void SeatManager_SetIncline (void)
 	}
 	else if(InclineBtnState == MULTI_STATE_BTN_PLUS)
 	{
-		Rte_Call_rpInclineMototor_Move(MOTOR_STEP_PLUS);
+		Rte_Call_rpInclineMotor_Move(MOTOR_STEP_PLUS);
 	}
 	
 }
-
 
 /**
  *
@@ -91,18 +90,22 @@ void SeatManager_SetSlide (void)
 {
 	Std_ReturnType status;
 	MultiStateBtnType SlideBtnState;
+	StepMotorStepType step;
 
 	/* Data Receive Points */
 	status = Rte_Read_rpSeatCtrlBtns_SlideBtnState(&SlideBtnState);
 	
+	/* Server Call Points */
+	status = Rte_Call_rpSlideMotor_Move(step);
+	
 	if(SlideBtnState == MULTI_STATE_BTN_MINUS)
 	{
-		Rte_Call_rpSlideMototor_Move(MOTOR_STEP_MINUS);
+		Rte_Call_rpSlideMotor_Move(MOTOR_STEP_MINUS);
 	}
 	else if(SlideBtnState == MULTI_STATE_BTN_PLUS)
 	{
-		Rte_Call_rpSlideMototor_Move(MOTOR_STEP_PLUS);
+		Rte_Call_rpSlideMotor_Move(MOTOR_STEP_PLUS);
 	}
 	
+	
 }
-
