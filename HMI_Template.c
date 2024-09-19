@@ -4,25 +4,9 @@
  * \brief Rte Component Template for AUTOSAR SWC: HMI
  *
  * \author Sprints AUTOSAR Authoring Tool (SAAT) v1.0.2
- * Generated on 9/9/2024 05:10 PM
+ * Generated on 9/19/2024 12:02 PM
  *
  * For any inquiries: hassan.m.farahat@gmail.com
- *
- */
-
-#include "Rte_HMI.h"
-
-
-#define MULTI_STATE_BTN_INIT  0
-#define MULTI_STATE_BTN_MINUS 1
-#define MULTI_STATE_BTN_PLUS  2
-
-/**
- *
- * Runnable HMI_MainFunction
- *
- * Triggered By:
- *  - TimingEventImpl.TE_HMI_MainFunction_100ms
  *
  */
 
@@ -35,6 +19,8 @@ void HMI_MainFunction (void)
 	MultiStateBtnType HeightBtnState;
 	MultiStateBtnType InclineBtnState;
 	MultiStateBtnType SlideBtnState;
+	
+	
 	uint8 Height;
 	uint8 Incline;
 	uint8 Slide;
@@ -89,9 +75,33 @@ void HMI_MainFunction (void)
 	}
 	
 	/* Data Send Points */
-	Height_status = Rte_Write_ppSeatCtrlBtns_HeightBtnState(HeightBtnState);
+	Height_status  = Rte_Write_ppSeatCtrlBtns_HeightBtnState(HeightBtnState);
 	Incline_status = Rte_Write_ppSeatCtrlBtns_InclineBtnState(InclineBtnState);
-	Slide_status = Rte_Write_ppSeatCtrlBtns_SlideBtnState(SlideBtnState);
+	Slide_status   = Rte_Write_ppSeatCtrlBtns_SlideBtnState(SlideBtnState);
+	
+}
+
+
+/**
+ *
+ * Runnable SeatModeChanged
+ *
+ * Triggered By:
+ *  - DataReceivedEventImpl.DRE_rpSeatModeBtn_SeatModeBtn
+ *
+ */
+
+void SeatModeChanged (void)
+{
+	Std_ReturnType status;
+	SeatModeBtnType SeatModeBtn;
+	uint8 SeatCtrlMode = RTE_MODE_SeatCtrlMode_INIT;
+
+	/* Data Receive Points */
+	status = Rte_Read_rpSeatModeBtn_SeatModeBtn(&SeatModeBtn);
+	
+	/* Mode Switch Points */
+	status = Rte_Switch_ppSeatCtrlMode_SeatCtrlMode(SeatCtrlMode);
 	
 }
 

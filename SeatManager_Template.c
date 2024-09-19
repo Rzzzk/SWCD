@@ -4,7 +4,7 @@
  * \brief Rte Component Template for AUTOSAR SWC: SeatManager
  *
  * \author Sprints AUTOSAR Authoring Tool (SAAT) v1.0.2
- * Generated on 9/16/2024 12:03 PM
+ * Generated on 9/19/2024 06:10 PM
  *
  * For any inquiries: hassan.m.farahat@gmail.com
  *
@@ -12,12 +12,209 @@
 
 #include "Rte_SeatManager.h"
 
-#define MULTI_STATE_BTN_INIT  0
-#define MULTI_STATE_BTN_MINUS 1
-#define MULTI_STATE_BTN_PLUS  2
+/**
+ *
+ * Runnable SeatManager_AutoHeight
+ *
+ * Triggered By:
+ *  - TimingEventImpl.TE_SeatManager_AutoHeight_200ms
+ *
+ */
 
-#define MOTOR_STEP_MINUS   0
-#define MOTOR_STEP_PLUS    1
+void SeatManager_AutoHeight (void)
+{
+Std_ReturnType status;
+	StepMotorStepType step;
+	SensorPositionType position;
+	SensorWeightTupe weight;
+
+	/* Server Call Points */
+	status = Rte_Call_rpSlideSensor_GetPosition(&position);
+	status = Rte_Call_rpWeightSensor_GetWeight(&weight);
+	
+	if(weight > 100 )
+	{
+		if(position > SENSOR_POSITION_STEP_3)
+		{
+			Rte_Call_rpHeightMotor_Move(MOTOR_STEP_MINUS);
+		}
+		else if(position < SENSOR_POSITION_STEP_3)
+		{
+			Rte_Call_rpHeightMotor_Move(MOTOR_STEP_PLUS);
+		}
+	}
+	else if(weight > 80)
+	{
+		if(position > SENSOR_POSITION_STEP_2)
+		{
+			Rte_Call_rpHeightMotor_Move(MOTOR_STEP_MINUS);
+		}
+		else if(position < SENSOR_POSITION_STEP_2)
+		{
+			Rte_Call_rpHeightMotor_Move(MOTOR_STEP_PLUS);
+		}
+	}
+	else if(weight > 60)
+	{
+		if(position > SENSOR_POSITION_STEP_1)
+		{
+			Rte_Call_rpHeightMotor_Move(MOTOR_STEP_MINUS);
+		}
+		else if(position < SENSOR_POSITION_STEP_1)
+		{
+			Rte_Call_rpHeightMotor_Move(MOTOR_STEP_PLUS);
+		}
+	}
+	else
+	{
+		if(position > SENSOR_POSITION_STEP_0)
+		{
+			Rte_Call_rpHeightMotor_Move(MOTOR_STEP_MINUS);
+		}
+		else if(position < SENSOR_POSITION_STEP_0)
+		{
+			Rte_Call_rpHeightMotor_Move(MOTOR_STEP_PLUS);
+		}
+	}
+}
+
+
+/**
+ *
+ * Runnable SeatManager_AutoIncline
+ *
+ * Triggered By:
+ *  - TimingEventImpl.TE_SeatManager_AutoIncline_200ms
+ *
+ */
+
+void SeatManager_AutoIncline (void)
+{
+	Std_ReturnType status;
+	StepMotorStepType step;
+	SensorPositionType position;
+	SensorWeightTupe weight;
+
+	/* Server Call Points */
+	status = Rte_Call_rpSlideSensor_GetPosition(&position);
+	status = Rte_Call_rpWeightSensor_GetWeight(&weight);
+	
+	if(weight > 100 )
+	{
+		if(position > SENSOR_POSITION_STEP_3)
+		{
+			Rte_Call_rpInclineMotor_Move(MOTOR_STEP_MINUS);
+		}
+		else if(position < SENSOR_POSITION_STEP_3)
+		{
+			Rte_Call_rpInclineMotor_Move(MOTOR_STEP_PLUS);
+		}
+	}
+	else if(weight > 80)
+	{
+		if(position > SENSOR_POSITION_STEP_2)
+		{
+			Rte_Call_rpInclineMotor_Move(MOTOR_STEP_MINUS);
+		}
+		else if(position < SENSOR_POSITION_STEP_2)
+		{
+			Rte_Call_rpInclineMotor_Move(MOTOR_STEP_PLUS);
+		}
+	}
+	else if(weight > 60)
+	{
+		if(position > SENSOR_POSITION_STEP_1)
+		{
+			Rte_Call_rpInclineMotor_Move(MOTOR_STEP_MINUS);
+		}
+		else if(position < SENSOR_POSITION_STEP_1)
+		{
+			Rte_Call_rpInclineMotor_Move(MOTOR_STEP_PLUS);
+		}
+	}
+	else
+	{
+		if(position > SENSOR_POSITION_STEP_0)
+		{
+			Rte_Call_rpInclineMotor_Move(MOTOR_STEP_MINUS);
+		}
+		else if(position < SENSOR_POSITION_STEP_0)
+		{
+			Rte_Call_rpInclineMotor_Move(MOTOR_STEP_PLUS);
+		}
+	}
+	
+}
+
+
+/**
+ *
+ * Runnable SeatManager_AutoSlide
+ *
+ * Triggered By:
+ *  - TimingEventImpl.TE_SeatManager_AutoSlide_200ms
+ *
+ */
+
+void SeatManager_AutoSlide (void)
+{
+	Std_ReturnType status;
+	StepMotorStepType step;
+	SensorPositionType position;
+	SensorWeightTupe weight;
+
+	/* Server Call Points */
+	status = Rte_Call_rpSlideSensor_GetPosition(&position);
+	status = Rte_Call_rpWeightSensor_GetWeight(&weight);
+	
+	if(weight > 100 )
+	{
+		if(position > SENSOR_POSITION_STEP_3)
+		{
+			Rte_Call_rpSlideMotor_Move(MOTOR_STEP_MINUS);
+		}
+		else if(position < SENSOR_POSITION_STEP_3)
+		{
+			Rte_Call_rpSlideMotor_Move(MOTOR_STEP_PLUS);
+		}
+	}
+	else if(weight > 80)
+	{
+		if(position > SENSOR_POSITION_STEP_2)
+		{
+			Rte_Call_rpSlideMotor_Move(MOTOR_STEP_MINUS);
+		}
+		else if(position < SENSOR_POSITION_STEP_2)
+		{
+			Rte_Call_rpSlideMotor_Move(MOTOR_STEP_PLUS);
+		}
+	}
+	else if(weight > 60)
+	{
+		if(position > SENSOR_POSITION_STEP_1)
+		{
+			Rte_Call_rpSlideMotor_Move(MOTOR_STEP_MINUS);
+		}
+		else if(position < SENSOR_POSITION_STEP_1)
+		{
+			Rte_Call_rpSlideMotor_Move(MOTOR_STEP_PLUS);
+		}
+	}
+	else
+	{
+		if(position > SENSOR_POSITION_STEP_0)
+		{
+			Rte_Call_rpSlideMotor_Move(MOTOR_STEP_MINUS);
+		}
+		else if(position < SENSOR_POSITION_STEP_0)
+		{
+			Rte_Call_rpSlideMotor_Move(MOTOR_STEP_PLUS);
+		}
+	}	
+	
+}
+
+
 
 /**
  *
@@ -77,6 +274,8 @@ void SeatManager_SetIncline (void)
 	
 }
 
+
+
 /**
  *
  * Runnable SeatManager_SetSlide
@@ -85,7 +284,6 @@ void SeatManager_SetIncline (void)
  *  - DataReceivedEventImpl.DRE_rpSeatCtrlBtns_SlideBtnState
  *
  */
-
 void SeatManager_SetSlide (void)
 {
 	Std_ReturnType status;
@@ -94,9 +292,6 @@ void SeatManager_SetSlide (void)
 
 	/* Data Receive Points */
 	status = Rte_Read_rpSeatCtrlBtns_SlideBtnState(&SlideBtnState);
-	
-	/* Server Call Points */
-	status = Rte_Call_rpSlideMotor_Move(step);
 	
 	if(SlideBtnState == MULTI_STATE_BTN_MINUS)
 	{
@@ -109,3 +304,4 @@ void SeatManager_SetSlide (void)
 	
 	
 }
+
