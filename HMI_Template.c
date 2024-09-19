@@ -100,8 +100,18 @@ void SeatModeChanged (void)
 	/* Data Receive Points */
 	status = Rte_Read_rpSeatModeBtn_SeatModeBtn(&SeatModeBtn);
 	
-	/* Mode Switch Points */
-	status = Rte_Switch_ppSeatCtrlMode_SeatCtrlMode(SeatCtrlMode);
+	if(SeatModeBtn == RTE_MODE_SeatBtnlMode_AUTO)
+	{
+		SeatCtrlMode = RTE_MODE_SeatCtrlMode_AUTO;
+	}
+	else if(SeatModeBtn == RTE_MODE_SeatBtnlMode_MANUAL)
+	{
+		
+		SeatCtrlMode = RTE_MODE_SeatCtrlMode_MANUAL;
+	}
 	
+	/* Mode Switch Points */
+	Rte_Switch_ppSeatCtrlMode_SeatCtrlMode(SeatCtrlMode);
+		
 }
 

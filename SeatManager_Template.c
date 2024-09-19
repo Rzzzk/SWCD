@@ -20,10 +20,60 @@
  *  - TimingEventImpl.TE_SeatManager_AutoHeight_200ms
  *
  */
+ 
+ 
+ StepMotorStepType setMotorSetAuto(SensorPositionType position, SensorWeightTupe weight)
+ {
+	 StepMotorStepType step;
+	if(weight > 100 )
+	{
+		if(position > SENSOR_POSITION_STEP_3)
+		{
+			step = MOTOR_STEP_MINUS;
+		}
+		else if(position < SENSOR_POSITION_STEP_3)
+		{
+			step = MOTOR_STEP_PLUS;
+		}
+	}
+	else if(weight > 80)
+	{
+		if(position > SENSOR_POSITION_STEP_2)
+		{
+			step = MOTOR_STEP_MINUS;
+		}
+		else if(position < SENSOR_POSITION_STEP_2)
+		{
+			step = MOTOR_STEP_PLUS;
+		}
+	}
+	else if(weight > 60)
+	{
+		if(position > SENSOR_POSITION_STEP_1)
+		{
+			step = MOTOR_STEP_MINUS;
+		}
+		else if(position < SENSOR_POSITION_STEP_1)
+		{
+			step = MOTOR_STEP_PLUS;
+		}
+	}
+	else
+	{
+		if(position > SENSOR_POSITION_STEP_0)
+		{
+			step = MOTOR_STEP_MINUS;
+		}
+		else if(position < SENSOR_POSITION_STEP_0)
+		{
+			step = MOTOR_STEP_PLUS;
+		}
+	}
+ }
 
 void SeatManager_AutoHeight (void)
 {
-Std_ReturnType status;
+	Std_ReturnType status;
 	StepMotorStepType step;
 	SensorPositionType position;
 	SensorWeightTupe weight;
@@ -32,50 +82,8 @@ Std_ReturnType status;
 	status = Rte_Call_rpSlideSensor_GetPosition(&position);
 	status = Rte_Call_rpWeightSensor_GetWeight(&weight);
 	
-	if(weight > 100 )
-	{
-		if(position > SENSOR_POSITION_STEP_3)
-		{
-			Rte_Call_rpHeightMotor_Move(MOTOR_STEP_MINUS);
-		}
-		else if(position < SENSOR_POSITION_STEP_3)
-		{
-			Rte_Call_rpHeightMotor_Move(MOTOR_STEP_PLUS);
-		}
-	}
-	else if(weight > 80)
-	{
-		if(position > SENSOR_POSITION_STEP_2)
-		{
-			Rte_Call_rpHeightMotor_Move(MOTOR_STEP_MINUS);
-		}
-		else if(position < SENSOR_POSITION_STEP_2)
-		{
-			Rte_Call_rpHeightMotor_Move(MOTOR_STEP_PLUS);
-		}
-	}
-	else if(weight > 60)
-	{
-		if(position > SENSOR_POSITION_STEP_1)
-		{
-			Rte_Call_rpHeightMotor_Move(MOTOR_STEP_MINUS);
-		}
-		else if(position < SENSOR_POSITION_STEP_1)
-		{
-			Rte_Call_rpHeightMotor_Move(MOTOR_STEP_PLUS);
-		}
-	}
-	else
-	{
-		if(position > SENSOR_POSITION_STEP_0)
-		{
-			Rte_Call_rpHeightMotor_Move(MOTOR_STEP_MINUS);
-		}
-		else if(position < SENSOR_POSITION_STEP_0)
-		{
-			Rte_Call_rpHeightMotor_Move(MOTOR_STEP_PLUS);
-		}
-	}
+	step = setMotorSetAuto(position, weight);
+	Rte_Call_rpHeightMotor_Move(step);
 }
 
 
@@ -99,51 +107,8 @@ void SeatManager_AutoIncline (void)
 	status = Rte_Call_rpSlideSensor_GetPosition(&position);
 	status = Rte_Call_rpWeightSensor_GetWeight(&weight);
 	
-	if(weight > 100 )
-	{
-		if(position > SENSOR_POSITION_STEP_3)
-		{
-			Rte_Call_rpInclineMotor_Move(MOTOR_STEP_MINUS);
-		}
-		else if(position < SENSOR_POSITION_STEP_3)
-		{
-			Rte_Call_rpInclineMotor_Move(MOTOR_STEP_PLUS);
-		}
-	}
-	else if(weight > 80)
-	{
-		if(position > SENSOR_POSITION_STEP_2)
-		{
-			Rte_Call_rpInclineMotor_Move(MOTOR_STEP_MINUS);
-		}
-		else if(position < SENSOR_POSITION_STEP_2)
-		{
-			Rte_Call_rpInclineMotor_Move(MOTOR_STEP_PLUS);
-		}
-	}
-	else if(weight > 60)
-	{
-		if(position > SENSOR_POSITION_STEP_1)
-		{
-			Rte_Call_rpInclineMotor_Move(MOTOR_STEP_MINUS);
-		}
-		else if(position < SENSOR_POSITION_STEP_1)
-		{
-			Rte_Call_rpInclineMotor_Move(MOTOR_STEP_PLUS);
-		}
-	}
-	else
-	{
-		if(position > SENSOR_POSITION_STEP_0)
-		{
-			Rte_Call_rpInclineMotor_Move(MOTOR_STEP_MINUS);
-		}
-		else if(position < SENSOR_POSITION_STEP_0)
-		{
-			Rte_Call_rpInclineMotor_Move(MOTOR_STEP_PLUS);
-		}
-	}
-	
+	step = setMotorSetAuto(position, weight);
+	Rte_Call_rpInclineMotor_Move(step);
 }
 
 
@@ -167,51 +132,8 @@ void SeatManager_AutoSlide (void)
 	status = Rte_Call_rpSlideSensor_GetPosition(&position);
 	status = Rte_Call_rpWeightSensor_GetWeight(&weight);
 	
-	if(weight > 100 )
-	{
-		if(position > SENSOR_POSITION_STEP_3)
-		{
-			Rte_Call_rpSlideMotor_Move(MOTOR_STEP_MINUS);
-		}
-		else if(position < SENSOR_POSITION_STEP_3)
-		{
-			Rte_Call_rpSlideMotor_Move(MOTOR_STEP_PLUS);
-		}
-	}
-	else if(weight > 80)
-	{
-		if(position > SENSOR_POSITION_STEP_2)
-		{
-			Rte_Call_rpSlideMotor_Move(MOTOR_STEP_MINUS);
-		}
-		else if(position < SENSOR_POSITION_STEP_2)
-		{
-			Rte_Call_rpSlideMotor_Move(MOTOR_STEP_PLUS);
-		}
-	}
-	else if(weight > 60)
-	{
-		if(position > SENSOR_POSITION_STEP_1)
-		{
-			Rte_Call_rpSlideMotor_Move(MOTOR_STEP_MINUS);
-		}
-		else if(position < SENSOR_POSITION_STEP_1)
-		{
-			Rte_Call_rpSlideMotor_Move(MOTOR_STEP_PLUS);
-		}
-	}
-	else
-	{
-		if(position > SENSOR_POSITION_STEP_0)
-		{
-			Rte_Call_rpSlideMotor_Move(MOTOR_STEP_MINUS);
-		}
-		else if(position < SENSOR_POSITION_STEP_0)
-		{
-			Rte_Call_rpSlideMotor_Move(MOTOR_STEP_PLUS);
-		}
-	}	
-	
+	step = setMotorSetAuto(position, weight);
+	Rte_Call_rpSlideMotor_Move(step);
 }
 
 
